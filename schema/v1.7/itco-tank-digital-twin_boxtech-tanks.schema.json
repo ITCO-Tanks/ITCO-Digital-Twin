@@ -1,0 +1,280 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ITCO-Tanks/ITCO-Digital-Twin/schema/v1.7/itco-tank-digital-twin_boxtech-tanks.schema.json",
+  "title": "ITCO Tank Container Digital Twin - BoxTech Tanks",
+  "version": "1.7.0",
+  "description": "Recommended starting point for the ITCO Digital Twin: the 14 core data points behind the first use case, carriers onboarding shipper-owned tank containers. Covers the fields of the v1.7 message that BIC BoxTech reads and holds as the tank container's technical record when a Digital Twin is uploaded (POST /api/v2.0/tank). Eleven fields are mandatory for BoxTech; the rest are recommended. Any other Digital Twin content is allowed, is stored by BoxTech in full and is returned unchanged. Two BoxTech rules cannot be expressed here: the check digit must be correct for the container number, and tare weight plus maximum payload must equal maximum gross weight.",
+  "type": "object",
+  "required": ["TankContainerDigitalTwin"],
+  "properties": {
+    "TankContainerDigitalTwin": {
+      "type": "object",
+      "description": "Root object of the Digital Twin message.",
+      "required": ["tankBasicInformation", "tankShell", "frame"],
+      "additionalProperties": true,
+      "properties": {
+        "digitalTwin": {
+          "type": "object",
+          "description": "Message header. Recommended. Not part of the BoxTech technical record, but stored with the twin.",
+          "properties": {
+            "lastUpdatedDate": {
+              "type": "string",
+              "format": "date",
+              "description": "Date the Digital Twin was last updated, as YYYY-MM-DD.",
+              "examples": ["2026-08-20"]
+            },
+            "version": {
+              "type": "string",
+              "description": "Version of the ITCO Digital Twin message format the payload follows.",
+              "examples": ["1.7"]
+            }
+          }
+        },
+        "tankBasicInformation": {
+          "type": "object",
+          "description": "Identity and design data of the tank container.",
+          "required": ["assetIdentification", "designSpecification"],
+          "properties": {
+            "assetIdentification": {
+              "type": "object",
+              "description": "Who the tank is. BICCode, serialNumber and checkDigit are combined into the 11-character BoxTech container_number.",
+              "required": ["BICCode", "serialNumber", "checkDigit"],
+              "properties": {
+                "BICCode": {
+                  "type": "string",
+                  "description": "Mandatory for BoxTech. ISO 6346 owner prefix (three letters) plus equipment category identifier (U, J or Z). First four characters of BoxTech container_number.",
+                  "pattern": "^[A-Z]{3}[UJZ]$",
+                  "examples": ["STBU"]
+                },
+                "serialNumber": {
+                  "type": "string",
+                  "description": "Mandatory for BoxTech. Six-digit ISO 6346 serial number, sent as a string so leading zeros are kept. Characters 5 to 10 of BoxTech container_number.",
+                  "pattern": "^[0-9]{6}$",
+                  "examples": ["263611", "000005"]
+                },
+                "checkDigit": {
+                  "type": "string",
+                  "description": "Mandatory for BoxTech. Single ISO 6346 check digit, sent as a string. Last character of BoxTech container_number. BoxTech rejects the upload if it is not correct for the BIC code and serial number.",
+                  "pattern": "^[0-9]$",
+                  "examples": ["5"]
+                },
+                "manufacturerName": {
+                  "type": "string",
+                  "description": "Recommended. Name of the tank manufacturer. Maps to BoxTech manufacturer."
+                },
+                "manufactureDate": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Recommended. Date of manufacture, as YYYY-MM-DD. Maps to BoxTech manufacture_date.",
+                  "examples": ["2023-08-01"]
+                },
+                "manufacturerSerialNumber": {
+                  "type": "string",
+                  "description": "Recommended. Serial number given to the tank by its manufacturer. Maps to BoxTech manufacture_number.",
+                  "examples": ["2308358"]
+                },
+                "operator": {
+                  "type": "string",
+                  "description": "Recommended. Company currently operating the tank. Maps to BoxTech current_operator."
+                }
+              }
+            },
+            "lastTest": {
+              "type": "object",
+              "description": "Recommended. The most recent periodic test. Its testDate is the Inspection Date of the 14 core data points.",
+              "properties": {
+                "testType": {
+                  "type": "string",
+                  "description": "Kind of periodic test.",
+                  "examples": ["2.5 years", "5 years", "exceptional", "other"]
+                },
+                "testPerformed": {
+                  "type": "string",
+                  "description": "Test method used.",
+                  "examples": ["hydraulic", "pressure"]
+                },
+                "testDate": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Date the test was carried out, as YYYY-MM-DD.",
+                  "examples": ["2024-07-22"]
+                }
+              }
+            },
+            "nextTest": {
+              "type": "object",
+              "description": "Recommended. The next periodic test due. Its testDate is the Next Inspection Date of the 14 core data points, which carriers check against the voyage dates.",
+              "properties": {
+                "testType": {
+                  "type": "string",
+                  "description": "Kind of periodic test due.",
+                  "examples": ["2.5 years", "5 years", "exceptional", "other"]
+                },
+                "testPerformed": {
+                  "type": "string",
+                  "description": "Test method due.",
+                  "examples": ["hydraulic", "pressure"]
+                },
+                "testDate": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Date the test is due, as YYYY-MM-DD.",
+                  "examples": ["2027-01-22"]
+                }
+              }
+            },
+            "designSpecification": {
+              "type": "object",
+              "description": "Design weights, capacity and tank codes. Tare weight plus maximum payload must equal maximum gross weight, or BoxTech rejects the upload.",
+              "required": [
+                "tareWeight",
+                "maximumGrossWeight",
+                "maximumPayload",
+                "capacity",
+                "RIDADRTankCode"
+              ],
+              "anyOf": [
+                { "required": ["Tcode"] },
+                { "required": ["TCode"] }
+              ],
+              "properties": {
+                "tareWeight": {
+                  "type": "object",
+                  "description": "Mandatory for BoxTech. Weight of the empty tank container in kilograms. Maps to BoxTech tare_kg.",
+                  "required": ["value"],
+                  "properties": {
+                    "unit": { "type": "string", "enum": ["KGM"], "description": "UN/ECE Rec 20 code for kilograms." },
+                    "value": { "type": "number", "exclusiveMinimum": 0 }
+                  },
+                  "examples": [{ "unit": "KGM", "value": 4000 }]
+                },
+                "maximumGrossWeight": {
+                  "type": "object",
+                  "description": "Mandatory for BoxTech. Maximum permitted weight of the tank container and its cargo in kilograms. Maps to BoxTech max_gross_mass_kg.",
+                  "required": ["value"],
+                  "properties": {
+                    "unit": { "type": "string", "enum": ["KGM"], "description": "UN/ECE Rec 20 code for kilograms." },
+                    "value": { "type": "number", "exclusiveMinimum": 0 }
+                  },
+                  "examples": [{ "unit": "KGM", "value": 36000 }]
+                },
+                "maximumPayload": {
+                  "type": "object",
+                  "description": "Mandatory for BoxTech. Maximum permitted cargo weight in kilograms. Maps to BoxTech max_payload_kg.",
+                  "required": ["value"],
+                  "properties": {
+                    "unit": { "type": "string", "enum": ["KGM"], "description": "UN/ECE Rec 20 code for kilograms." },
+                    "value": { "type": "number", "exclusiveMinimum": 0 }
+                  },
+                  "examples": [{ "unit": "KGM", "value": 32000 }]
+                },
+                "capacity": {
+                  "type": "object",
+                  "description": "Mandatory for BoxTech. Capacity of the tank in litres. Maps to BoxTech capacity_litres; BoxTech computes cubic_capacity_cbm from it.",
+                  "required": ["value"],
+                  "properties": {
+                    "unit": { "type": "string", "enum": ["LTR"], "description": "UN/ECE Rec 20 code for litres." },
+                    "value": { "type": "number", "exclusiveMinimum": 0 }
+                  },
+                  "examples": [{ "unit": "LTR", "value": 25780 }]
+                },
+                "RIDADRTankCode": {
+                  "type": "string",
+                  "description": "Mandatory for BoxTech. RID/ADR tank code. Maps to BoxTech adr_rid_code.",
+                  "examples": ["L4BN"]
+                },
+                "Tcode": {
+                  "type": "string",
+                  "description": "Mandatory for BoxTech. UN portable tank instruction (IMDG T code). Maps to BoxTech imdg_code.",
+                  "examples": ["T11"]
+                },
+                "TCode": {
+                  "type": "string",
+                  "description": "ITCO v1.5 spelling of Tcode, still accepted by BoxTech. Send Tcode for v1.7.",
+                  "deprecated": true
+                }
+              }
+            }
+          }
+        },
+        "tankShell": {
+          "type": "object",
+          "description": "The tank vessel.",
+          "required": ["baffles"],
+          "properties": {
+            "baffles": {
+              "type": "object",
+              "description": "Surge baffles inside the tank.",
+              "required": ["bafflesFitted"],
+              "properties": {
+                "bafflesFitted": {
+                  "type": "string",
+                  "enum": ["yes", "no"],
+                  "description": "Mandatory for BoxTech. Whether baffles are fitted. Maps to BoxTech baffles (yes becomes true, no becomes false)."
+                }
+              }
+            }
+          }
+        },
+        "frame": {
+          "type": "object",
+          "description": "The container frame around the tank.",
+          "required": ["ISO6346SizeTypeCode"],
+          "properties": {
+            "ISO6346SizeTypeCode": {
+              "type": "string",
+              "description": "Mandatory for BoxTech. ISO 6346 size type code. Must be a valid code; BoxTech cannot record a container without it. Maps to BoxTech detail_st.",
+              "pattern": "^[0-9A-Z]{4}$",
+              "examples": ["22K2"]
+            },
+            "length": {
+              "type": "object",
+              "description": "Recommended. External length in millimetres. Maps to BoxTech external_length_mm. BoxTech takes external dimensions from the ISO standard for the size type code, and uses this value only where the code has no standard dimensions.",
+              "properties": {
+                "unit": { "type": "string", "enum": ["MMT"], "description": "UN/ECE Rec 20 code for millimetres." },
+                "value": { "type": "number", "exclusiveMinimum": 0 }
+              },
+              "examples": [{ "unit": "MMT", "value": 6058 }]
+            },
+            "width": {
+              "type": "object",
+              "description": "Recommended. External width in millimetres. Maps to BoxTech external_width_mm. Used by BoxTech only where the size type code has no standard dimensions.",
+              "properties": {
+                "unit": { "type": "string", "enum": ["MMT"], "description": "UN/ECE Rec 20 code for millimetres." },
+                "value": { "type": "number", "exclusiveMinimum": 0 }
+              },
+              "examples": [{ "unit": "MMT", "value": 2438 }]
+            },
+            "height": {
+              "type": "object",
+              "description": "Recommended. External height in millimetres. Maps to BoxTech external_height_mm. Used by BoxTech only where the size type code has no standard dimensions.",
+              "properties": {
+                "unit": { "type": "string", "enum": ["MMT"], "description": "UN/ECE Rec 20 code for millimetres." },
+                "value": { "type": "number", "exclusiveMinimum": 0 }
+              },
+              "examples": [{ "unit": "MMT", "value": 2591 }]
+            },
+            "stackingCapacity": {
+              "type": "object",
+              "description": "Recommended. Permitted stacking load in kilograms. Maps to BoxTech stacking_kg.",
+              "properties": {
+                "unit": { "type": "string", "enum": ["KGM"], "description": "UN/ECE Rec 20 code for kilograms." },
+                "value": { "type": "number", "exclusiveMinimum": 0 }
+              },
+              "examples": [{ "unit": "KGM", "value": 216000 }]
+            },
+            "rackingForce": {
+              "type": "object",
+              "description": "Recommended. Racking test force in newtons. Maps to BoxTech racking_n; BoxTech derives the value in kilograms.",
+              "properties": {
+                "unit": { "type": "string", "enum": ["NEW"], "description": "UN/ECE Rec 20 code for newtons." },
+                "value": { "type": "number", "exclusiveMinimum": 0 }
+              },
+              "examples": [{ "unit": "NEW", "value": 150000 }]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -10,16 +10,16 @@
         "BICCode": "STBU",
         "serialNumber": "263611",
         "checkDigit": "5",
-        "manufacturerName": "Jingjiang Asian-Pacific Logistics Equipment Co., Ltd. (JJAP)",
+        "manufacturerName": "Example Tank Manufacturer A",
         "manufactureDate": "2023-08-01",
         "manufacturerSerialNumber": "2308358",
-        "owner": "Stolt Tank Containers Leasing Ltd.",
-        "operator": "Stolt Tank Containers B.V"
+        "owner": "Example Tank Leasing Ltd.",
+        "operator": "Example Tank Operator B.V."
       },
       "designSpecification": {
         "RIDADRTankCode": "L4BN",
         "TCode": "T11",
-        "classificationSociety": "Lloyds Register",
+        "classificationSociety": "Example Classification Society",
         "tareWeight":         { "unit": "KGM", "value": 4000 },
         "maximumGrossWeight": { "unit": "KGM", "value": 36000 },
         "maximumPayload":     { "unit": "KGM", "value": 32000 },

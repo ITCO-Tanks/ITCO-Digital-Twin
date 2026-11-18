@@ -37,7 +37,27 @@
             }
         },
         "frame": {
-            "ISO6346SizeTypeCode": "22K2"
+            "ISO6346SizeTypeCode": "22K2",
+            "length": {
+                "unit": "MMT",
+                "value": 6058
+            },
+            "height": {
+                "unit": "MMT",
+                "value": 2591
+            },
+            "width": {
+                "unit": "MMT",
+                "value": 2438
+            },
+            "stackingCapacity": {
+                "unit": "KGM",
+                "value": 216000
+            },
+            "rackingForce": {
+                "unit": "NEW",
+                "value": 150000
+            }
         }
     }
 }

@@ -9,10 +9,16 @@
                 "BICCode": "SUTU",
                 "serialNumber": "000005",
                 "checkDigit": "9",
-                "manufacturerName": "CIMC NANTONG",
+                "manufacturerName": "Example Tank Manufacturer B",
                 "manufactureDate": "2017-03-02",
                 "manufacturerSerialNumber": "",
-                "operator": "Stolt Tank Containers B.V"
+                "operator": "Example Tank Operator B.V."
+            },
+            "lastTest": {
+                "testDate": "2024-07-22"
+            },
+            "nextTest": {
+                "testDate": "2027-01-22"
             },
             "designSpecification": {
                 "RIDADRTankCode": "L4BN",
