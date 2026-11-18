@@ -109,21 +109,21 @@ The API also computes the following derived fields after mapping:
       "equipmentType": "ISOTank",
       "assetIdentification": {
         "manufacturerSerialNumber": "2308358",
-        "manufacturerName": "Jingjiang Asian-Pacific Logistics Equipment Co., Ltd. (JJAP)",
+        "manufacturerName": "Example Tank Manufacturer A",
         "manufactureDate": "2023-08-01",
         "initialCertificateIssuanceDate": "2023-08-01",
         "initialHydraulicTestDate": "2023-07-23",
         "BICCode": "STBU",
         "serialNumber": "263611",
         "checkDigit": "5",
-        "owner": "Stolt Tank Containers Leasing Ltd.",
-        "operator": "Stolt Tank Containers B.V"
+        "owner": "Example Tank Leasing Ltd.",
+        "operator": "Example Tank Operator B.V."
       },
       "testHistory": [],
       "designSpecification": {
         "RIDADRTankCode": "L4BN",
         "Tcode": "T11",
-        "classificationSociety": "Lloyds Register",
+        "classificationSociety": "Example Classification Society",
         "tareWeight": {
           "unit": "KGM",
           "value": 4000
@@ -485,7 +485,7 @@ The API also computes the following derived fields after mapping:
         {
           "isRuptureDiscFitted": false,
           "location": "centre-front spillbox",
-          "manufacturer": "Fort Vale",
+          "manufacturer": "Example Component Manufacturer A",
           "partCode": "010/144000",
           "serialNumber": "23073751",
           "connectionType": "threaded",
@@ -508,7 +508,7 @@ The API also computes the following derived fields after mapping:
       "isHeated": false,
       "heatingType": "",
       "fitmentLocation": "tangentially off centre line",
-      "manufacturer": "Fort Vale",
+      "manufacturer": "Example Component Manufacturer A",
       "partCode": "",
       "serialNumber": "",
       "valveType": "ball",
@@ -544,7 +544,7 @@ The API also computes the following derived fields after mapping:
       "isHeated": false,
       "heatingType": "",
       "fitmentLocation": "centre-rear spill box",
-      "manufacturer": "Fort Vale",
+      "manufacturer": "Example Component Manufacturer A",
       "partCode": "",
       "serialNumber": "",
       "type": "butterfly",
@@ -570,7 +570,7 @@ The API also computes the following derived fields after mapping:
       "weldInFlangeGasket": {
         "isIntegral": true,
         "materialType": "PTFE envelope",
-        "manufacturer": "Perolo",
+        "manufacturer": "Example Component Manufacturer B",
         "partCode": "",
         "serialNumber": "",
         "clearanceHeight": { "unit": "MMT", "value": 2.3 }
@@ -637,7 +637,7 @@ The API also computes the following derived fields after mapping:
         "isHeated": false,
         "heatingType": "",
         "fitmentLocation": "bottom valve cabinet",
-        "manufacturer": "Fort Vale",
+        "manufacturer": "Example Component Manufacturer A",
         "partCode": "",
         "serialNumber": "",
         "valveType": "poppet",
@@ -654,7 +654,7 @@ The API also computes the following derived fields after mapping:
         "isHeated": false,
         "heatingType": "",
         "fitmentLocation": "",
-        "manufacturer": "Fort Vale",
+        "manufacturer": "Example Component Manufacturer A",
         "partCode": "",
         "serialNumber": "",
         "valveType": "butterfly",
@@ -670,7 +670,7 @@ The API also computes the following derived fields after mapping:
       "thirdClosure": {
         "terminationType": "Spigot flange & cap",
         "materialType": "stainless steel",
-        "manufacturer": "Fort Vale",
+        "manufacturer": "Example Component Manufacturer A",
         "partCode": "",
         "cap": {
           "threadType": "DN 80",
@@ -780,10 +780,10 @@ rAYoSwfQG5A" \
           "BICCode": "STBU",
           "serialNumber": "263611",
           "checkDigit": "5",
-          "manufacturerName": "JJAP",
+          "manufacturerName": "Example Tank Manufacturer A",
           "manufactureDate": "2023-08-01",
           "manufacturerSerialNumber": "2308358",
-          "operator": "Stolt Tank Containers B.V"
+          "operator": "Example Tank Operator B.V."
         },
         "designSpecification": {
           "RIDADRTankCode": "L4BN",
