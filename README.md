@@ -12,6 +12,8 @@ The full Digital Twin has around **530 data attributes**. That is a huge amount 
 
 **BIC BoxTech is ITCO's method of sharing the Digital Twin with the industry.** Rather than build a new platform, ITCO makes use of an established one. BoxTech is operated by the Bureau International des Containers (BIC), a non-profit organisation, and already serves the dry container industry with technical information about containers, specifically the data shown on the back of the container door. Tank operators upload their Digital Twins to BoxTech, and carriers, terminals and other parties look a tank up there by its container number.
 
+**You will need a BoxTech account.** Registration is free: [sign up at bic-boxtech.org](https://www.bic-boxtech.org/sign-up/). To upload Digital Twins, the account also needs uploader rights for your BIC code; see the [upload guide](docs/boxtech-upload-guide.md).
+
 **Use case 1: carriers onboarding shipper-owned tank containers.** Carriers need reliable data about a shipper-owned tank before they accept a booking. Today that data arrives by email, forms and scanned certificates, and takes around 20 minutes per tank on each side. With the 14 data points uploaded once to BoxTech, a carrier can look the tank up by container number instead.
 
 | # | Data point | Digital Twin field | Mandatory for BoxTech |
