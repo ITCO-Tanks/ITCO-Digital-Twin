@@ -1,0 +1,67 @@
+{
+    "TankContainerDigitalTwin": {
+        "digitalTwin": {
+            "lastUpdatedDate": "2026-08-20",
+            "version": "1.7"
+        },
+        "tankBasicInformation": {
+            "assetIdentification": {
+                "BICCode": "SUTU",
+                "serialNumber": "000005",
+                "checkDigit": "9",
+                "manufacturerName": "CIMC NANTONG",
+                "manufactureDate": "2017-03-02",
+                "manufacturerSerialNumber": "",
+                "operator": "Stolt Tank Containers B.V"
+            },
+            "designSpecification": {
+                "RIDADRTankCode": "L4BN",
+                "Tcode": "T11",
+                "tareWeight": {
+                    "unit": "KGM",
+                    "value": 3570
+                },
+                "capacity": {
+                    "unit": "LTR",
+                    "value": 24020
+                },
+                "maximumGrossWeight": {
+                    "unit": "KGM",
+                    "value": 36000
+                },
+                "maximumPayload": {
+                    "unit": "KGM",
+                    "value": 32430
+                }
+            }
+        },
+        "tankShell": {
+            "baffles": {
+                "bafflesFitted": "no"
+            }
+        },
+        "frame": {
+            "ISO6346SizeTypeCode": "22K2",
+            "length": {
+                "unit": "MMT",
+                "value": 6058
+            },
+            "height": {
+                "unit": "MMT",
+                "value": 2591
+            },
+            "width": {
+                "unit": "MMT",
+                "value": 2438
+            },
+            "stackingCapacity": {
+                "unit": "KGM",
+                "value": 192000
+            },
+            "rackingForce": {
+                "unit": "NEW",
+                "value": 150000
+            }
+        }
+    }
+}

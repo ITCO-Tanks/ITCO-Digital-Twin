@@ -1,0 +1,46 @@
+{
+  "TankContainerDigitalTwin": {
+    "digitalTwin": {
+      "lastUpdatedDate": "2025-09-02",
+      "version": "1.10"
+    },
+    "tankBasicInformation": {
+      "equipmentType": "ISOTank",
+      "assetIdentification": {
+        "BICCode": "STBU",
+        "serialNumber": "263611",
+        "checkDigit": "5",
+        "manufacturerName": "Jingjiang Asian-Pacific Logistics Equipment Co., Ltd. (JJAP)",
+        "manufactureDate": "2023-08-01",
+        "manufacturerSerialNumber": "2308358",
+        "owner": "Stolt Tank Containers Leasing Ltd.",
+        "operator": "Stolt Tank Containers B.V"
+      },
+      "designSpecification": {
+        "RIDADRTankCode": "L4BN",
+        "TCode": "T11",
+        "classificationSociety": "Lloyds Register",
+        "tareWeight":         { "unit": "KGM", "value": 4000 },
+        "maximumGrossWeight": { "unit": "KGM", "value": 36000 },
+        "maximumPayload":     { "unit": "KGM", "value": 32000 },
+        "maximumCapacity":    { "unit": "LTR", "value": 25780 }
+      }
+    },
+    "tankShell": {
+      "baffles": {
+        "bafflesFitted": "yes",
+        "fitmentType": "welded",
+        "materialType": "stainless steel",
+        "numberOfBaffleSets": 3
+      }
+    },
+    "frame": {
+      "frameType": "beam",
+      "materialType": "carbon steel",
+      "ISO6346DimensionCode": "22K2",
+      "dimensions":       { "unit": "MMT", "length": 6058, "width": 2438, "height": 2591 },
+      "stackingCapacity": { "unit": "KGM", "value": 216000 },
+      "rackingForce":     { "unit": "NEW", "value": 150000 }
+    }
+  }
+}

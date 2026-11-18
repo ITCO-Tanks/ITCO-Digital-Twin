@@ -1,0 +1,227 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.bic-boxtech.org/schemas/itco-tank-digital-twin.schema.json",
+  "title": "ITCO Tank Container Digital Twin — BoxTech Required Subset",
+  "description": "Validates an ITCO Digital Twin payload for the fields that are mandatory when uploading a tank container to the BoxTech API (POST /tank). Required fields are the intersection of BoxTech's FleetIn + TankContainer required schemas and the ITCO→BoxTech mapping table in the Tank Digital Twin API Guide. Optional ITCO content is allowed (additionalProperties not restricted).",
+  "type": "object",
+  "required": ["TankContainerDigitalTwin"],
+  "properties": {
+    "TankContainerDigitalTwin": {
+      "type": "object",
+      "required": ["tankBasicInformation", "tankShell", "frame"],
+      "properties": {
+        "tankBasicInformation": {
+          "type": "object",
+          "required": ["assetIdentification", "designSpecification"],
+          "properties": {
+            "assetIdentification": {
+              "type": "object",
+              "description": "Source for BoxTech container_number (BICCode + serialNumber + checkDigit, total 11 chars).",
+              "required": ["BICCode", "serialNumber", "checkDigit"],
+              "properties": {
+                "BICCode": {
+                  "type": "string",
+                  "description": "Maps to BoxTech bic_code. 4 chars: 3-letter owner prefix + equipment identifier (U/J/Z).",
+                  "minLength": 4,
+                  "maxLength": 4,
+                  "pattern": "^[A-Z]{3}[UJZ]$",
+                  "examples": ["STBU", "BICU"]
+                },
+                "serialNumber": {
+                  "type": "string",
+                  "description": "Maps to BoxTech serial_number. 6 numeric digits per ISO 6346.",
+                  "pattern": "^[0-9]{6}$",
+                  "examples": ["263611", "123456"]
+                },
+                "checkDigit": {
+                  "type": "string",
+                  "description": "Maps to BoxTech check_digit. Single digit validating the container number per ISO 6346.",
+                  "pattern": "^[0-9]$",
+                  "examples": ["5"]
+                },
+                "manufacturerName": {
+                  "type": "string",
+                  "description": "Maps to BoxTech manufacturer. Optional at BoxTech level for tank fleet-in."
+                },
+                "manufactureDate": {
+                  "type": "string",
+                  "format": "date",
+                  "description": "Maps to BoxTech manufacture_date. ISO 8601 date.",
+                  "examples": ["2023-08-01"]
+                },
+                "manufacturerSerialNumber": {
+                  "type": "string",
+                  "description": "Maps to BoxTech manufacture_number.",
+                  "examples": ["2308358"]
+                }
+              }
+            },
+            "designSpecification": {
+              "type": "object",
+              "required": [
+                "tareWeight",
+                "maximumGrossWeight",
+                "maximumPayload",
+                "maximumCapacity",
+                "RIDADRTankCode",
+                "TCode"
+              ],
+              "properties": {
+                "tareWeight": {
+                  "type": "object",
+                  "description": "Maps to BoxTech tare_kg. Unit must be KGM (kilograms).",
+                  "required": ["unit", "value"],
+                  "properties": {
+                    "unit": { "const": "KGM" },
+                    "value": {
+                      "type": "number",
+                      "exclusiveMinimum": 0,
+                      "examples": [4000]
+                    }
+                  },
+                  "examples": [{ "unit": "KGM", "value": 4000 }]
+                },
+                "maximumGrossWeight": {
+                  "type": "object",
+                  "description": "Maps to BoxTech max_gross_mass_kg. Unit must be KGM.",
+                  "required": ["unit", "value"],
+                  "properties": {
+                    "unit": { "const": "KGM" },
+                    "value": {
+                      "type": "number",
+                      "exclusiveMinimum": 0,
+                      "examples": [36000]
+                    }
+                  },
+                  "examples": [{ "unit": "KGM", "value": 36000 }]
+                },
+                "maximumPayload": {
+                  "type": "object",
+                  "description": "Maps to BoxTech max_payload_kg. Unit must be KGM.",
+                  "required": ["unit", "value"],
+                  "properties": {
+                    "unit": { "const": "KGM" },
+                    "value": {
+                      "type": "number",
+                      "exclusiveMinimum": 0,
+                      "examples": [32000]
+                    }
+                  },
+                  "examples": [{ "unit": "KGM", "value": 32000 }]
+                },
+                "maximumCapacity": {
+                  "type": "object",
+                  "description": "Maps to BoxTech capacity_litres. Unit must be LTR (ITCO carries capacity in litres only; BoxTech derives cubic_capacity_cbm server-side).",
+                  "required": ["unit", "value"],
+                  "properties": {
+                    "unit": { "const": "LTR" },
+                    "value": {
+                      "type": "number",
+                      "exclusiveMinimum": 0,
+                      "examples": [25780]
+                    }
+                  },
+                  "examples": [{ "unit": "LTR", "value": 25780 }]
+                },
+                "RIDADRTankCode": {
+                  "type": "string",
+                  "description": "Maps to BoxTech adr_rid_code. Pattern enforced by BoxTech TankContainer schema.",
+                  "pattern": "^[LS](G|1\\.5|2\\.65|4|10|15|21)[ABCD][VFNH]$",
+                  "examples": ["L4BN", "L10CN", "S2.65AN"]
+                },
+                "TCode": {
+                  "type": "string",
+                  "description": "Maps to BoxTech imdg_code (IMDG Tank instruction, e.g. T11, T22).",
+                  "pattern": "^T[0-9]{1,2}$",
+                  "examples": ["T11", "T22"]
+                }
+              }
+            }
+          }
+        },
+        "tankShell": {
+          "type": "object",
+          "required": ["baffles"],
+          "properties": {
+            "baffles": {
+              "type": "object",
+              "description": "Maps to BoxTech baffles (boolean). \"yes\" -> true, anything else -> false.",
+              "required": ["bafflesFitted"],
+              "properties": {
+                "bafflesFitted": {
+                  "type": "string",
+                  "enum": ["yes", "no"]
+                }
+              }
+            }
+          }
+        },
+        "frame": {
+          "type": "object",
+          "required": ["ISO6346DimensionCode"],
+          "properties": {
+            "ISO6346DimensionCode": {
+              "type": "string",
+              "description": "Maps to BoxTech detail_st. ISO 6346 size-type code, 4 chars.",
+              "minLength": 4,
+              "maxLength": 4,
+              "pattern": "^[0-9A-Z]{4}$",
+              "examples": ["22K2", "45G1", "22T6"]
+            },
+            "dimensions": {
+              "type": "object",
+              "description": "Maps to BoxTech external_length_mm / external_width_mm / external_height_mm. Unit must be MMT. Resolved from ISO standard when a known size-type is provided; input values used only for range/unassigned codes.",
+              "properties": {
+                "unit": { "const": "MMT" },
+                "length": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "examples": [6058]
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "examples": [2438]
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "examples": [2591]
+                }
+              },
+              "examples": [
+                { "unit": "MMT", "length": 6058, "width": 2438, "height": 2591 }
+              ]
+            },
+            "stackingCapacity": {
+              "type": "object",
+              "description": "Maps to BoxTech stacking_kg. Unit must be KGM.",
+              "properties": {
+                "unit": { "const": "KGM" },
+                "value": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "examples": [216000]
+                }
+              },
+              "examples": [{ "unit": "KGM", "value": 216000 }]
+            },
+            "rackingForce": {
+              "type": "object",
+              "description": "Maps to BoxTech racking_n. Unit must be NEW (newtons). BoxTech will derive racking_kg if only newtons provided.",
+              "properties": {
+                "unit": { "const": "NEW" },
+                "value": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "examples": [150000]
+                }
+              },
+              "examples": [{ "unit": "NEW", "value": 150000 }]
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+    "TankContainerDigitalTwin": {
+        "digitalTwin": {
+            "lastUpdatedDate": "2026-10-30",
+            "version": "1.7"
+        },
+        "tankBasicInformation": {
+            "assetIdentification": {
+                "BICCode": "BGBU",
+                "serialNumber": "080000",
+                "checkDigit": "1"
+            },
+            "designSpecification": {
+                "RIDADRTankCode": "L4BN",
+                "Tcode": "T11",
+                "tareWeight": {
+                    "unit": "KGM",
+                    "value": 3880
+                },
+                "capacity": {
+                    "unit": "LTR",
+                    "value": 25950
+                },
+                "maximumGrossWeight": {
+                    "unit": "KGM",
+                    "value": 39000
+                },
+                "maximumPayload": {
+                    "unit": "KGM",
+                    "value": 35120
+                }
+            }
+        },
+        "tankShell": {
+            "baffles": {
+                "bafflesFitted": "yes"
+            }
+        },
+        "frame": {
+            "ISO6346SizeTypeCode": "22K2"
+        }
+    }
+}

@@ -1,0 +1,305 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ITCO/digital-twin/schema/v1.7/itco-tank-digital-twin.schema.json",
+  "title": "ITCO Tank Container Digital Twin",
+  "version": "1.7.0",
+  "type": "object",
+  "description": "ITCO Digital Twin specification for tank containers",
+  "required": [
+    "TankContainerDigitalTwin"
+  ],
+  "properties": {
+    "TankContainerDigitalTwin": {
+      "type": "object",
+      "required": [
+        "tankBasicInformation",
+        "tankShell",
+        "frame"
+      ],
+      "properties": {
+        "digitalTwin": {
+          "type": "object",
+          "properties": {
+            "lastUpdatedDate": {
+              "type": "string",
+              "example": "2025-09-02"
+            },
+            "version": {
+              "type": "string",
+              "example": "1.10"
+            }
+          }
+        },
+        "tankBasicInformation": {
+          "type": "object",
+          "required": [
+            "assetIdentification",
+            "designSpecification"
+          ],
+          "properties": {
+            "equipmentType": {
+              "type": "string",
+              "example": "ISOTank"
+            },
+            "assetIdentification": {
+              "type": "object",
+              "required": [
+                "BICCode",
+                "serialNumber",
+                "checkDigit"
+              ],
+              "properties": {
+                "manufacturerSerialNumber": {
+                  "type": "string"
+                },
+                "manufacturerName": {
+                  "type": "string"
+                },
+                "manufactureDate": {
+                  "type": "string"
+                },
+                "BICCode": {
+                  "type": "string",
+                  "minLength": 4,
+                  "maxLength": 4,
+                  "example": "STBU"
+                },
+                "serialNumber": {
+                  "type": "string",
+                  "example": "263611"
+                },
+                "checkDigit": {
+                  "type": "string",
+                  "example": "5"
+                },
+                "owner": {
+                  "type": "string"
+                },
+                "operator": {
+                  "type": "string"
+                }
+              }
+            },
+            "designSpecification": {
+              "type": "object",
+              "required": [
+                "tareWeight",
+                "maximumGrossWeight",
+                "maximumPayload",
+                "capacity",
+                "RIDADRTankCode"
+              ],
+              "anyOf": [
+                {
+                  "required": [
+                    "Tcode"
+                  ]
+                },
+                {
+                  "required": [
+                    "TCode"
+                  ]
+                }
+              ],
+              "properties": {
+                "RIDADRTankCode": {
+                  "type": "string",
+                  "example": "L4BN"
+                },
+                "Tcode": {
+                  "type": "string",
+                  "example": "T11"
+                },
+                "TCode": {
+                  "type": "string",
+                  "description": "ITCO v1.5 spelling of Tcode, still accepted. Send Tcode for v1.7.",
+                  "deprecated": true
+                },
+                "tareWeight": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "unit": {
+                      "type": "string",
+                      "enum": [
+                        "KGM"
+                      ]
+                    },
+                    "value": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "capacity": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "unit": {
+                      "type": "string",
+                      "enum": [
+                        "LTR"
+                      ]
+                    },
+                    "value": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "maximumGrossWeight": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "unit": {
+                      "type": "string",
+                      "enum": [
+                        "KGM"
+                      ]
+                    },
+                    "value": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "maximumPayload": {
+                  "type": "object",
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "unit": {
+                      "type": "string",
+                      "enum": [
+                        "KGM"
+                      ]
+                    },
+                    "value": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tankShell": {
+          "type": "object",
+          "required": [
+            "baffles"
+          ],
+          "properties": {
+            "baffles": {
+              "type": "object",
+              "required": [
+                "bafflesFitted"
+              ],
+              "properties": {
+                "bafflesFitted": {
+                  "type": "string",
+                  "enum": [
+                    "yes",
+                    "no"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "frame": {
+          "type": "object",
+          "required": [
+            "ISO6346SizeTypeCode"
+          ],
+          "properties": {
+            "ISO6346SizeTypeCode": {
+              "type": "string",
+              "description": "ISO 6346 size type code. Required - BoxTech cannot record a container without it.",
+              "minLength": 4,
+              "maxLength": 4,
+              "example": "22K2"
+            },
+            "length": {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "enum": [
+                    "MMT"
+                  ]
+                },
+                "value": {
+                  "type": "number",
+                  "example": 6058
+                }
+              }
+            },
+            "height": {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "enum": [
+                    "MMT"
+                  ]
+                },
+                "value": {
+                  "type": "number",
+                  "example": 2591
+                }
+              }
+            },
+            "width": {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "enum": [
+                    "MMT"
+                  ]
+                },
+                "value": {
+                  "type": "number",
+                  "example": 2438
+                }
+              }
+            },
+            "stackingCapacity": {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "enum": [
+                    "KGM"
+                  ]
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            },
+            "rackingForce": {
+              "type": "object",
+              "properties": {
+                "unit": {
+                  "type": "string",
+                  "enum": [
+                    "NEW"
+                  ]
+                },
+                "value": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
